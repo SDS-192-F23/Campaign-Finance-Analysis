@@ -41,12 +41,18 @@ contributions
 ```
 
 ```{r analysis-1}
+#making the data set smaller and filtering for relevant information
 condensed_contributions<-contributions|>
   select(transaction_tp, entity_tp, name, transaction_amt,cand_id)|>
   filter(transaction_amt >= 10000)
 
+condensed_candidates<-candidates|>
+  select(cand_id, cand_name, cand_pty_affiliation, cand_office)|>
+  filter(cand_office=="P", cand_pty_affiliation%in%c("REP", "DEM"))
 
-
+contributions2<-condensed_contributions|>
+  inner_join(condensed_candidates,
+             by=c("cand_id"))
 
 
 
