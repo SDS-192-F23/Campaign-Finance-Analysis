@@ -41,9 +41,9 @@ contributions
 ```
 
 ```{r analysis-1}
-# Group member 1 work here!
-
-
+condensed_contributions<-contributions|>
+  select(transaction_tp, entity_tp, name, transaction_amt,cand_id)|>
+  filter(transaction_amt >= 10000)
 
 
 
