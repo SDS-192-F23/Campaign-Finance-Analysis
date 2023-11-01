@@ -49,12 +49,25 @@ condensed_contributions<-contributions|>
 condensed_candidates<-candidates|>
   select(cand_id, cand_name, cand_pty_affiliation, cand_office)|>
   filter(cand_office=="P", cand_pty_affiliation%in%c("REP", "DEM"))
-
+#joining the data with some data from candidates to add the candidates' names
 contributions2<-condensed_contributions|>
   inner_join(condensed_candidates,
              by=c("cand_id"))
+#filtering for just Trump and Biden
+contributions2<- contributions2|>
+  filter(cand_id%in%c("P80001571","P80000722"))|>
+  select(transaction_tp,entity_tp,name,transaction_amt,cand_id,cand_name)
+#Recoding the names of transactions to be more reader-friendly
+contributions2$transaction_tp<-
+  recode(contributions2$transaction_tp,
+         "24E"="In Favor",
+         "24K"="In Favor",
+         "24A"="Against")
+#Now, to focus on group contributions, individuals and candidates are filtered out
+contributions2<- contributions2|>
+  filter(entity_tp%in%c("COM","ORG","PAC", "PTY", "CCM"))
 
-
+  
 
 
 
