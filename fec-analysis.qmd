@@ -85,9 +85,36 @@ Question of interest:
 What are the economic demographics of individuals who donate to campaigns? Does one party receive more contributions from individuals greater than $10,000 than another? Does one party receive more contributions from individuals less than $1000 than another? 
 
 ```{r}
+#Joining contributions with cand_id to match up Candidate names with Candidate IDs 
+contributions3<-contributions|>
+  inner_join(condensed_candidates,
+             by=c("cand_id"))
+```
 
+```{r}
+#creating a dataframe of only IND values regardless of amount contributed
+contributions3_ind <- contributions3 |>
+  filter(entity_tp %in% c("IND")) 
+glimpse(contributions_condensed_ind)
+```
 
+```{r}
+#filtering for contributions to Trump and Biden
+contributions3_ind <- contributions3_ind |>
+  filter(cand_name %in% c("BIDEN, JOSEPH R JR", "TRUMP, DONALD J.")) 
+```
 
+```{r}
+#selecting only for relevant columns 
+contributions3_ind<- contributions3_ind|>
+  select(transaction_tp, name, city, state, transaction_amt,cand_name)
+```
+
+```{r}
+#combining donors of the same name into one observation 
+contributions3_ind<- contributions3_ind|>
+  group_by(name)
+```
 
 
 
