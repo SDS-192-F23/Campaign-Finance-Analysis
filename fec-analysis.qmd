@@ -124,11 +124,27 @@ contributions3_ind<- contributions3_ind|>
 ```
 
 ```{r}
-#combining donors of the same name into one observation 
-contributions3_ind<- contributions3_ind|>
-  group_by(name)
+#Recoding the names of transactions to be more reader-friendly
+contributions3_ind$transaction_tp<-
+  recode(contributions3_ind$transaction_tp,
+         "24E"="In Favor",
+         "24K"="In Favor",
+         "24A"="Against")
 ```
 
+```{r}
+#doesn't work yet 
+#replacing instances of double commas with a single comma 
+contributions3_ind_without_commas |> 
+  str_replace_all(",,",",")
+```
+
+```{r}
+#combining donors of the same name into one observation 
+contributions3_ind_grouped<- contributions3_ind|>
+  group_by(name, cand_name) |>
+  summarise(total_amt = sum(transaction_amt))
+```
 
 
 
