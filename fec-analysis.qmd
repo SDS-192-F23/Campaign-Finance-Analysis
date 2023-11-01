@@ -41,6 +41,10 @@ contributions
 ```
 
 ```{r analysis-1}
+#Kat's work in below chunks---------
+```
+
+```{r}
 #making the data set smaller and filtering for relevant information
 condensed_contributions<-contributions|>
   select(transaction_tp, entity_tp, name, transaction_amt,cand_id)|>
@@ -53,34 +57,41 @@ condensed_candidates<-candidates|>
 contributions2<-condensed_contributions|>
   inner_join(condensed_candidates,
              by=c("cand_id"))
+```
+
+```{r}
 #filtering for just Trump and Biden
 contributions2<- contributions2|>
   filter(cand_id%in%c("P80001571","P80000722"))|>
   select(transaction_tp,entity_tp,name,transaction_amt,cand_id,cand_name)
+```
+
+```{r}
 #Recoding the names of transactions to be more reader-friendly
 contributions2$transaction_tp<-
   recode(contributions2$transaction_tp,
          "24E"="In Favor",
          "24K"="In Favor",
-         "24A"="Against")
-#Now, to focus on group contributions, individuals and candidates are filtered out
-contributions2<- contributions2|>
-  filter(entity_tp%in%c("COM","ORG","PAC", "PTY", "CCM"))
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
+         "24A"="Against",
+         "24C"="In Favor",
+         "24N"="Against",
+         "24F"="In Favor",
+         "24Z"="In Favor")
 ```
+```{r}
+#Now, to focus on group contributions, individuals and candidates are filtered out
+groupcontributions<- contributions2|>
+  filter(entity_tp%in%c("COM","ORG","PAC", "PTY", "CCM"))
+```
+```{r}
+#This combines the multiple contributions made by one group so that the total amount contributed by one group is shown rather than every individual donation being shown differently
+groupcontributions2<- groupcontributions|>
+  group_by(transaction_tp, entity_tp, name, cand_name)|>
+  summarize(total=sum(transaction_amt))
+```
+
+
+
 
 ```{r analysis-2}
 # Ellie's Work------------------------------------------------------------------------------------- 
