@@ -22,6 +22,7 @@ output:
 ```{r setup}
 library(tidyverse)
 library(fec20)
+options(scipen = 10)
 ```
 
 ```{r helper-chunk}
@@ -47,8 +48,7 @@ contributions
 ```{r}
 #making the data set smaller and filtering for relevant information
 condensed_contributions<-contributions|>
-  select(transaction_tp, entity_tp, name, transaction_amt,cand_id)|>
-  filter(transaction_amt >= 10000)
+  select(transaction_tp, entity_tp, name, transaction_amt,cand_id)
 
 condensed_candidates<-candidates|>
   select(cand_id, cand_name, cand_pty_affiliation, cand_office)|>
@@ -79,15 +79,32 @@ contributions2$transaction_tp<-
          "24Z"="In Favor")
 ```
 ```{r}
-#Now, to focus on group contributions, individuals and candidates are filtered out
-groupcontributions<- contributions2|>
-  filter(entity_tp%in%c("COM","ORG","PAC", "PTY", "CCM"))
-```
-```{r}
 #This combines the multiple contributions made by one group so that the total amount contributed by one group is shown rather than every individual donation being shown differently
-groupcontributions2<- groupcontributions|>
+groupcontributions<- groupcontributions2|>
   group_by(transaction_tp, entity_tp, name, cand_name)|>
   summarize(total=sum(transaction_amt))
+```
+```{r}
+#To see the total quantity contributed to and against Biden And Trump by organizations, this last summary move is completed
+sumcontributions<- groupcontributions|>
+  group_by(transaction_tp, cand_name)|>
+  summarize(total=sum(total))
+```
+```{r}
+sumcontributions|>
+ggplot(aes(x=total, y=cand_name, fill=transaction_tp))+
+  geom_col()+
+  coord_flip()+
+  labs(title="Total Contributed to Leading Candidates by Groups*",
+       subtitle="*In this case, 'groups' refers to non-individuals, including
+committees, candidates, candidate committees, PACs,
+and organizations",
+x="Total (In USD)",
+y="Candidate",
+fill="Transaction",
+caption="Source:
+https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/")+
+scale_fill_manual(values=c("#ab400c","#65995c"))
 ```
 
 
