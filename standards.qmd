@@ -31,7 +31,4 @@ We demonstrated subsetting data when we selected by certain relevant columns. We
 
 # GitHub
 
-Demonstrates an ability to delegate tasks effectively via Issues x
-Demonstrates an ability to collaborate across multiple GitHub branches x
-Demonstrates an ability to review collaborators' code x
 
