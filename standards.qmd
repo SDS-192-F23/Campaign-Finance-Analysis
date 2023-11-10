@@ -2,9 +2,9 @@
 title: "SDS 192 Mini-Project 2 Standards"
 subtitle: "SDS 192"
 author: 
-- name: Author One
+- name: Kat Brady
   affiliation: Smith College
-- name: Author Two
+- name: Ellie Zdancewic
   affiliation: Smith College
 - name: Author Three
   affiliation: Smith College
@@ -28,9 +28,9 @@ Fill response here...
 
 # Joining Data
 
-Fill response here...
+We demonstrated an ability to join data frames by, for example, appropriately joining the candidate and contribution data frames to better ID the candidates. We demonstrated an ability to select the most appropriate type of join by selecting an inner join for the aforementioned joining of data frames. An inner join was most appropriate because it avoided issues with NAs and also made it easy to join by cand_id within the table.In the third paragraph of our blog post, we demonstrated an ability to reflect upon ethical concerns of joining information across data frames
 
 # GitHub
 
-Fill response here...
+We demonstrated an ability to delegate tasks effectively via Issues by using a few issues throughout the project. However, we did most of the work while together so we did not need to use Issues as much as we would if we had been doing work remotely. We showed an ability to collaborate across multiple GitHub branches because we resolved any possible merge conflicts and made new branches for all of our edits. Finally, we demonstrated an ability to review collaborators' code by assigning each other as reviewers and then reviewing before committing each others' code.
 
