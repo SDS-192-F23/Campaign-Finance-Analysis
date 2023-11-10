@@ -80,7 +80,7 @@ contributions2$transaction_tp<-
 ```
 ```{r}
 #This combines the multiple contributions made by one group so that the total amount contributed by one group is shown rather than every individual donation being shown differently
-groupcontributions<- groupcontributions2|>
+groupcontributions<- contributions2|>
   group_by(transaction_tp, entity_tp, name, cand_name)|>
   summarize(total=sum(transaction_amt))
 ```
