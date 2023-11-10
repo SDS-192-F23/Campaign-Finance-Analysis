@@ -24,13 +24,14 @@ output:
 
 # Transforming Data
 
-Fill response here...
+We demonstrated subsetting data when we selected by certain relevant columns. We demonstrated an ability to aggregate data when we grouped by candidate name and summarized our number. In the second paragraph of our blog post we demonstrated an ability to interpret the results of our data wrangling projects. 
 
 # Joining Data
 
-Fill response here...
 
 # GitHub
 
-Fill response here...
+Demonstrates an ability to delegate tasks effectively via Issues x
+Demonstrates an ability to collaborate across multiple GitHub branches x
+Demonstrates an ability to review collaborators' code x
 
