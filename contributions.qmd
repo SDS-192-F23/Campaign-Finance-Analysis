@@ -20,11 +20,11 @@ output:
 ---
 
 
-# Group Member 1: NAME
+# Group Member 1: Kat
 
 Fill response here...
 
-# Group Member 2: NAME
+# Group Member 2: Ellie
 
 Fill response here...
 
