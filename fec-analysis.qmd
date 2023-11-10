@@ -96,8 +96,8 @@ ggplot(aes(x=total, y=cand_name, fill=transaction_tp))+
   coord_flip()+
   labs(title="Total Contributed to Leading Candidates by Groups*",
        subtitle="*In this case, 'groups' refers to non-individuals, including
-committees, candidates, candidate committees, PACs,
-and organizations",
+committees, candidates, candidate committees, PACs, individual 
+contributions to committees, and organizations",
 x="Total (In USD)",
 y="Candidate",
 fill="Transaction",
@@ -213,40 +213,6 @@ contributions3_ind_grouped |>
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-```
-
-```{r analysis-3}
-# Group member 3 work here!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```
 
 # Blog post
 
