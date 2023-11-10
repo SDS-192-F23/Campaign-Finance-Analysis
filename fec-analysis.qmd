@@ -22,7 +22,6 @@ output:
 ```{r setup}
 library(tidyverse)
 library(fec20)
-options(scipen = 10)
 ```
 
 ```{r helper-chunk}
@@ -48,7 +47,8 @@ contributions
 ```{r}
 #making the data set smaller and filtering for relevant information
 condensed_contributions<-contributions|>
-  select(transaction_tp, entity_tp, name, transaction_amt,cand_id)
+  select(transaction_tp, entity_tp, name, transaction_amt,cand_id)|>
+  filter(transaction_amt >= 10000)
 
 condensed_candidates<-candidates|>
   select(cand_id, cand_name, cand_pty_affiliation, cand_office)|>
@@ -79,32 +79,15 @@ contributions2$transaction_tp<-
          "24Z"="In Favor")
 ```
 ```{r}
+#Now, to focus on group contributions, individuals and candidates are filtered out
+groupcontributions<- contributions2|>
+  filter(entity_tp%in%c("COM","ORG","PAC", "PTY", "CCM"))
+```
+```{r}
 #This combines the multiple contributions made by one group so that the total amount contributed by one group is shown rather than every individual donation being shown differently
-groupcontributions<- groupcontributions2|>
+groupcontributions2<- groupcontributions|>
   group_by(transaction_tp, entity_tp, name, cand_name)|>
   summarize(total=sum(transaction_amt))
-```
-```{r}
-#To see the total quantity contributed to and against Biden And Trump by organizations, this last summary move is completed
-sumcontributions<- groupcontributions|>
-  group_by(transaction_tp, cand_name)|>
-  summarize(total=sum(total))
-```
-```{r}
-sumcontributions|>
-ggplot(aes(x=total, y=cand_name, fill=transaction_tp))+
-  geom_col()+
-  coord_flip()+
-  labs(title="Total Contributed to Leading Candidates by Groups*",
-       subtitle="*In this case, 'groups' refers to non-individuals, including
-committees, candidates, candidate committees, PACs,
-and organizations",
-x="Total (In USD)",
-y="Candidate",
-fill="Transaction",
-caption="Source:
-https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/")+
-scale_fill_manual(values=c("#ab400c","#65995c"))
 ```
 
 
@@ -123,13 +106,7 @@ glimpse(contributions_condensed_ind)
 ```
 
 Question of interest: 
-What are the economic demographics of individuals who donate to campaigns? Does one party receive more contributions from individuals greater than $10,000 than another? Does one party receive more contributions from individuals less than $10,000 than another? 
-
-```{r}
-read_all_individuals()
-```
-
-
+What are the economic demographics of individuals who donate to committees that benefit Trump or Biden? Does one party's committees receive more contributions from individuals greater than $10,000 than another? Does one party's committees receive more contributions from individuals less than $10,000 than another? 
 
 
 ```{r}
@@ -196,7 +173,15 @@ contributions3_ind_grouped |>
     scale_x_binned(
       n.breaks = 3
     ) + 
-    scale_fill_brewer(palette = "Set1", direction = -1)
+    scale_fill_brewer(palette = "Set1", direction = -1) + 
+  labs(
+    x = "Dollar Amount of Contribution", 
+    y = "Count",
+    title = "Large vs. Small Individual Committee Donations",
+    subtitle = "For Committees Benefiting the 2020 Election Campigns of Trump and Biden",
+    fill = "Candidate Name",
+    caption = "Source: https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/,"
+  )
     
 ```
 
@@ -209,13 +194,6 @@ contributions3_ind_grouped |>
   )
 #BIDEN, JOSEPH R JR   838
 #TRUMP, DONALD J.     145
-```
-
-```{r}
-#creating my second data visualization (by percent)
-contributions3_ind_grouped |> 
-  ggplot(aes(x=cand_name, fill = ))
-    
 ```
 
 
