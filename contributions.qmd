@@ -22,12 +22,10 @@ output:
 
 # Group Member 1: Kat
 
-Fill response here...
+I believe that we split the work evenly. We both collaborated on our question and discussed how to clean and use the data before taking different approaches. I spent time recoding the data to make it cleaner and easier to understand, and Ellie did something similar with removing extra commas. We both made a visualization. Then, Ellie wrote the first paragraph of the blog post and we split the second and third paragraphs. We worked on using Github to commit and review each others' commits. We also split the standards evenly.
 
 # Group Member 2: Ellie
 
 I think we did a pretty good job at splitting up the work in this project. We did exploratory data analysis together and collaborated on coming up with a question to focus on. Then we each took a separate angle related to our question and did independent data wrangling in order to create data visualizations that answered our questions. Kat did a good job of joining and recoding the data frames to make it easier to work with. Ellie focused on individuals donating to committees and successfully removed instances of double commas. Both Ellie and Kat worked well over Git, committing without any problem, reviewing each others' commits, and assigning issues. Ellie wrote the introduction to the blog post, half of the second paragraph, and the ethical concern. 
 
-# Group Member 3: NAME
 
-Fill response here...
